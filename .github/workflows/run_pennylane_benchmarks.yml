@@ -1,0 +1,13 @@
+name: PennyLane Benchmarks
+on:
+  # schedule:
+  #   - cron: "0 0 * * 0-6"  # Run daily at 0am
+  pull_request:
+
+concurrency:
+  group: pennylane-benchmarks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  call-workflow-passing-data:
+    uses: PennyLaneAI/pennylane/.github/workflows/benchmarks.yml@improve-benchmarks
