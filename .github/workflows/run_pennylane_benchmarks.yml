@@ -1,0 +1,39 @@
+name: PennyLane Benchmarks
+on:
+  schedule:
+    - cron: "41 5 * * 0-6"  # Run daily at 0am
+  pull_request:
+
+concurrency:
+  group: pennylane-benchmarks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  call_pennylane_benchmarks:
+    uses: PennyLaneAI/pennylane/.github/workflows/benchmarks.yml@improve-benchmarks
+    with:
+      branch: improve-benchmarks
+
+  update_benchmark_data:
+      needs: call_pennylane_benchmarks
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout PennyLane-Lightning master
+          uses: actions/checkout@v3
+          with:
+            ref: main
+
+        - uses: actions/download-artifact@v3
+          with:
+            path: pennylane_benchmarks
+
+        - name: Commit and push changes
+          if:
+          run: |
+            if [[ -n $(git status -s) ]]; then
+              git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+              git config --global user.name "Benchmarks update bot"
+              git add .
+              git commit -m 'Auto update benchmark data'
+              git push
+            fi
