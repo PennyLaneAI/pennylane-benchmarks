@@ -25,11 +25,7 @@ jobs:
 
         - uses: actions/download-artifact@v3
           with:
-            path: pennylane_benchmark
-
-        - name: Display structure of downloaded files
-          run: ls -R
-          working-directory: pennylane_benchmarks
+            path: pennylane_benchmarks
 
         - name: Commit and push changes
           if:
