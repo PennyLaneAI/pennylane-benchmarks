@@ -9,5 +9,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  call-workflow-passing-data:
+  call-pennylane-benchmarks:
     uses: PennyLaneAI/pennylane/.github/workflows/benchmarks.yml@improve-benchmarks
+    with:
+      branch: improve-benchmarks
