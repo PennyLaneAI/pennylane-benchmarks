@@ -12,6 +12,7 @@ jobs:
   call_pennylane_benchmarks:
     uses: PennyLaneAI/pennylane/.github/workflows/benchmarks.yml@improve-benchmarks
     with:
+      ref_branch: add-pytest-benchmarks
       branch: improve-benchmarks
 
   update_benchmark_data:
