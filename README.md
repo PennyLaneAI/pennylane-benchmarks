@@ -1,7 +1,7 @@
 # pennylane-benchmarks
-Performs periodic benchmarks runs on PennyLane
+Performs periodic benchmark runs on PennyLane
 
-PennyLane benchmarks' plots:
+## PennyLane Benchmarks
 
 ![device-tests-default.mixed-None-3.9-benchmarks](pennylane_benchmarks/device-tests-default.mixed-None-3.9-benchmarks/device-tests-default.mixed-None-3.9.png "device-tests-default.mixed-None-3.9-benchmarks")
 
