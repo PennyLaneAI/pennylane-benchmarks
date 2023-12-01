@@ -12,6 +12,7 @@ jobs:
   call_pennylane_benchmarks:
     uses: PennyLaneAI/pennylane/.github/workflows/benchmarks.yml@improve-benchmarks
     with:
+      ref_branch: add-pytest-benchmarks
       branch: improve-benchmarks
 
   update_benchmark_data:
@@ -26,6 +27,9 @@ jobs:
         - uses: actions/download-artifact@v3
           with:
             path: pennylane_benchmarks
+
+        - name: update time
+          run: sed -i "/^last updated:/c\last updated:\ $(date +'%Y-%m-%d')" README.md
 
         - name: Commit and push changes
           if:
