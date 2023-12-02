@@ -13,4 +13,4 @@ Performs periodic benchmark runs on PennyLane
 
 ![jax-tests-1-3.9](pennylane_benchmarks/jax-tests-1-3.9-benchmarks/jax-tests-1-3.9.png "jax-tests-1-3.9")
 
-last updated: 2023-12-01
+last updated: 2023-12-02
