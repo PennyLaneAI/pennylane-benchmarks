@@ -2,7 +2,7 @@ name: PennyLane Benchmarks
 on:
   schedule:
     - cron: "41 5 * * 0-6"  # Run daily at 0am
-  # pull_request:
+  pull_request:
 
 concurrency:
   group: pennylane-benchmarks-${{ github.ref }}
