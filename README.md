@@ -3,6 +3,8 @@ Performs periodic benchmark runs on PennyLane
 
 ## PennyLane Benchmarks
 
+last updated: 2023-12-04
+
 ![device-tests-default.mixed-None-3.9-benchmarks](pennylane_benchmarks/device-tests-default.mixed-None-3.9-benchmarks/device-tests-default.mixed-None-3.9.png "device-tests-default.mixed-None-3.9-benchmarks")
 
 ![device-tests-default.qubit.autograd-None-3.9](pennylane_benchmarks/device-tests-default.qubit.autograd-None-3.9-benchmarks/device-tests-default.qubit.autograd-None-3.9.png "device-tests-default.qubit.autograd-None-3.9")
@@ -12,5 +14,3 @@ Performs periodic benchmark runs on PennyLane
 ![device-tests-default.qubit.legacy-None-3.9-benchmarks](pennylane_benchmarks/device-tests-default.qubit.legacy-None-3.9-benchmarks/device-tests-default.qubit.legacy-None-3.9.png "device-tests-default.qubit.legacy-None-3.9-benchmarks")
 
 ![jax-tests-1-3.9](pennylane_benchmarks/jax-tests-1-3.9-benchmarks/jax-tests-1-3.9.png "jax-tests-1-3.9")
-
-last updated: 2023-12-04
