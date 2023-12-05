@@ -14,7 +14,7 @@ env:
 
 jobs:
   call_pennylane_benchmarks:
-    uses: PennyLaneAI/pennylane/.github/workflows/benchmarks.yml@$branch
+    uses: PennyLaneAI/pennylane/.github/workflows/benchmarks.yml@master
     with:
       ref_branch: $ref_branch
       branch: $branch
