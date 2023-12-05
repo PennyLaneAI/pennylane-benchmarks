@@ -43,6 +43,8 @@ jobs:
     steps:
       - name: Checkout pennylane-benchmarks
         uses: actions/checkout@v3
+        with:
+          ref: update_pennylane_benchmarks #change to main before merge
 
       - uses: actions/download-artifact@v3
         with:
