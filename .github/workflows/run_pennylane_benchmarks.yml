@@ -25,6 +25,7 @@ jobs:
       - name: Checkout pennylane $ref_branch branch
         uses: actions/checkout@v3
         with:
+          repository: PennyLaneAI/pennylane
           ref: $ref_branch
 
       - name: Query the benchmark reference branch head commit
@@ -34,6 +35,7 @@ jobs:
       - name: Checkout pennylane $branch branch
         uses: actions/checkout@v3
         with:
+          repository: PennyLaneAI/pennylane
           ref: $branch
 
       - name: Query the benchmark branch head commit
