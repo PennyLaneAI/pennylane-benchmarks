@@ -8,25 +8,20 @@ concurrency:
   group: pennylane-benchmarks-${{ github.ref }}
   cancel-in-progress: true
 
-env:
-  branch: master
-  ref_branch: add-pytest-benchmarks
-
 jobs:
   call_pennylane_benchmarks:
     uses: PennyLaneAI/pennylane/.github/workflows/benchmarks.yml@master
     with:
-      ref_branch: $ref_branch
-      branch: $branch
+      branch: master
 
   get_head_commits:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout pennylane $ref_branch branch
+      - name: Checkout pennylane reference branch
         uses: actions/checkout@v3
         with:
           repository: PennyLaneAI/pennylane
-          ref: $ref_branch
+          ref: add-pytest-benchmarks
 
       - name: Query the benchmark reference branch head commit
         run: |
@@ -36,7 +31,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: PennyLaneAI/pennylane
-          ref: $branch
+          ref: master
 
       - name: Query the benchmark branch head commit
         run: |
