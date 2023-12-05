@@ -34,8 +34,8 @@ if __name__ == "__main__":
     mdFile = MdUtils(file_name='README',
                     title='pennylane-benchmarks')
 
-    mdFile.new_line("Performs periodic benchmark runs on PennyLane.", align='center')
-    mdFile.new_line("Last updated: "+parsed_args.last_updated, align='center')
+    mdFile.new_line("Performs periodic benchmark runs on PennyLane.")
+    mdFile.new_line("Last updated: "+parsed_args.last_updated)
     mdFile.write('  \n')
 
     mdFile.new_header(level=1, title="PennyLane Benchmarks")
@@ -43,9 +43,7 @@ if __name__ == "__main__":
     base_link = "https://github.com/PennyLaneAI/pennylane/commit/"
     mdFile.new_line("Benchmark reference head commit: "+ mdFile.new_inline_link(base_link+parsed_args.pl_ref_commit, parsed_args.pl_ref_commit))
     mdFile.new_line("Benchmark head commit: "+ mdFile.new_inline_link(base_link+parsed_args.pl_commit, parsed_args.pl_commit))
-
-    mdFile.new_paragraph("``new_inline_link`` method allows you to create a link of the style: "
-                        "``[mdutils](https://github.com/didix21/mdutils)``.\n")
+    mdFile.write('  \n')
 
     # Adding plots to the markdown file.
     bm_name_list = ["device-tests-default.mixed-None-3.9",
