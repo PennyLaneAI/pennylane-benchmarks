@@ -2,15 +2,13 @@
 pennylane-benchmarks
 ====================
   
-<center>Performs periodic benchmark runs on PennyLane.</center>  
-<center>Last updated: 2023-12-05</center>  
+Performs periodic benchmark runs on PennyLane.  
+Last updated: 2023-12-05  
 
 # PennyLane Benchmarks
   
 Benchmark reference head commit: [bbb](https://github.com/PennyLaneAI/pennylane/commit/bbb)  
-Benchmark head commit: [aaa](https://github.com/PennyLaneAI/pennylane/commit/aaa)
-
-``new_inline_link`` method allows you to create a link of the style: ``[mdutils](https://github.com/didix21/mdutils)``.
+Benchmark head commit: [aaa](https://github.com/PennyLaneAI/pennylane/commit/aaa)  
   
 ![device-tests-default.mixed-None-3.9-benchmarks](pennylane_benchmarks/device-tests-default.mixed-None-3.9-benchmarks/device-tests-default.mixed-None-3.9.png)  
   
