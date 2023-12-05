@@ -8,36 +8,63 @@ concurrency:
   group: pennylane-benchmarks-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  branch: master
+  ref_branch: add-pytest-benchmarks
+
 jobs:
   call_pennylane_benchmarks:
-    uses: PennyLaneAI/pennylane/.github/workflows/benchmarks.yml@improve-benchmarks
+    uses: PennyLaneAI/pennylane/.github/workflows/benchmarks.yml@$branch
     with:
-      ref_branch: add-pytest-benchmarks
-      branch: improve-benchmarks
+      ref_branch: $ref_branch
+      branch: $branch
+
+  get_head_commits:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout pennylane $ref_branch branch
+        uses: actions/checkout@v3
+        with:
+          ref: $ref_branch
+
+      - name: Query the benchmark reference branch head commit
+        run: |
+          git rev-parse HEAD
+
+      - name: Checkout pennylane $branch branch
+        uses: actions/checkout@v3
+        with:
+          ref: $branch
+
+      - name: Query the benchmark branch head commit
+        run: |
+          git rev-parse HEAD
 
   update_benchmark_data:
-      needs: call_pennylane_benchmarks
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout PennyLane-Lightning master
-          uses: actions/checkout@v3
-          with:
-            ref: main
+    needs: [call_pennylane_benchmarks, get_head_commits]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout pennylane-benchmarks master
+        uses: actions/checkout@v3
+        with:
+          ref: main
 
-        - uses: actions/download-artifact@v3
-          with:
-            path: pennylane_benchmarks
+      - uses: actions/download-artifact@v3
+        with:
+          path: pennylane_benchmarks
 
-        - name: update time
-          run: sed -i "/^last updated:/c\last updated:\ $(date +'%Y-%m-%d')" README.md
+      - run: python -m pip install mdutils
 
-        - name: Commit and push changes
-          if:
-          run: |
-            if [[ -n $(git status -s) ]]; then
-              git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-              git config --global user.name "Benchmarks update bot"
-              git add .
-              git commit -m 'Auto update benchmark data'
-              git push
-            fi
+      - name: update README file
+        run: python .github/workflows/scripts/generate_md.py --last_update $(date +'%Y-%m-%d') --pl_commit aaa --pl_ref_commit bbb
+
+      - name: Commit and push changes
+        if:
+        run: |
+          if [[ -n $(git status -s) ]]; then
+            git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+            git config --global user.name "Benchmarks update bot"
+            git add .
+            git commit -m 'Auto update benchmark data'
+            git push
+          fi
