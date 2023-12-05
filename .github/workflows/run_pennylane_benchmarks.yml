@@ -27,13 +27,13 @@ jobs:
         run: |
           git rev-parse HEAD
 
-      - name: Checkout pennylane $branch branch
+      - name: Checkout pennylane benchmarked branch
         uses: actions/checkout@v3
         with:
           repository: PennyLaneAI/pennylane
           ref: master
 
-      - name: Query the benchmark branch head commit
+      - name: Query the benchmarked branch head commit
         run: |
           git rev-parse HEAD
 
@@ -41,10 +41,8 @@ jobs:
     needs: [call_pennylane_benchmarks, get_head_commits]
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout pennylane-benchmarks master
+      - name: Checkout pennylane-benchmarks
         uses: actions/checkout@v3
-        with:
-          ref: main
 
       - uses: actions/download-artifact@v3
         with:
