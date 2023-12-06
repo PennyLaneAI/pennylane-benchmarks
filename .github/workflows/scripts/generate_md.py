@@ -17,7 +17,7 @@ def parse_args():
     parser.add_argument(
         "--pl_commit",
         type=str,
-        help="Head commit for the PennyLane branch been benchmarked.",
+        help="Head commit for the PennyLane benchmarked branch.",
     )
 
     parser.add_argument(
