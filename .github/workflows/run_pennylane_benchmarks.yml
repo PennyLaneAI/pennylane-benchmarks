@@ -24,8 +24,9 @@ jobs:
           ref: add-pytest-benchmarks
 
       - name: Query the benchmark reference branch head commit
+        id: query_ref_head_commit
         run: |
-          git rev-parse HEAD
+          echo "head_commit=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
       - name: Checkout pennylane benchmarked branch
         uses: actions/checkout@v3
@@ -34,8 +35,14 @@ jobs:
           ref: master
 
       - name: Query the benchmarked branch head commit
+        id: query_head_commit
         run: |
-          git rev-parse HEAD
+          echo "head_commit=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
+    outputs:
+      ref_head_commit: ${{ steps.query_ref_head_commit.outputs.head_commit }}
+      head_commit: ${{ steps.query_head_commit.outputs.head_commit }}
+
 
   update_benchmark_data:
     needs: [call_pennylane_benchmarks, get_head_commits]
@@ -53,7 +60,11 @@ jobs:
       - run: python -m pip install mdutils
 
       - name: update README file
-        run: python .github/workflows/scripts/generate_md.py --last_update $(date +'%Y-%m-%d') --pl_commit aaa --pl_ref_commit bbb
+        run: |
+          python .github/workflows/scripts/generate_md.py
+          --last_update $(date +'%Y-%m-%d')
+          --pl_ref_commit ${{ fromJson(needs.get_head_commits.outputs.ref_head_commit) }}
+          --pl_commit ${{ fromJson(needs.get_head_commits.outputs.head_commit) }}
 
       - name: Commit and push changes
         if:
