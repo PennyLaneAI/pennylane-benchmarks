@@ -9,10 +9,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # call_pennylane_benchmarks:
-  #   uses: PennyLaneAI/pennylane/.github/workflows/benchmarks.yml@master
-  #   with:
-  #     branch: master
+  call_pennylane_benchmarks:
+    uses: PennyLaneAI/pennylane/.github/workflows/benchmarks.yml@master
+    with:
+      branch: master
 
   get_head_commits:
     runs-on: ubuntu-latest
@@ -45,7 +45,7 @@ jobs:
 
 
   update_benchmark_data:
-    needs: [get_head_commits]
+    needs: [call_pennylane_benchmarks, get_head_commits]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout pennylane-benchmarks
