@@ -40,8 +40,8 @@ jobs:
           echo "head_commit=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
     outputs:
-      ref_head_commit: ${{ steps.query_ref_head_commit.outputs.head_commit }}
-      head_commit: ${{ steps.query_head_commit.outputs.head_commit }}
+      ref_head_commit: "${{ steps.query_ref_head_commit.outputs.head_commit }}"
+      head_commit: "${{ steps.query_head_commit.outputs.head_commit }}"
 
 
   update_benchmark_data:
