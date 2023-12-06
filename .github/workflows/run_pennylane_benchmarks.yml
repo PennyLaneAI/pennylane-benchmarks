@@ -9,10 +9,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  call_pennylane_benchmarks:
-    uses: PennyLaneAI/pennylane/.github/workflows/benchmarks.yml@master
-    with:
-      branch: master
+  # call_pennylane_benchmarks:
+  #   uses: PennyLaneAI/pennylane/.github/workflows/benchmarks.yml@master
+  #   with:
+  #     branch: master
 
   get_head_commits:
     runs-on: ubuntu-latest
@@ -45,7 +45,7 @@ jobs:
 
 
   update_benchmark_data:
-    needs: [call_pennylane_benchmarks, get_head_commits]
+    needs: [get_head_commits]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout pennylane-benchmarks
@@ -61,10 +61,7 @@ jobs:
 
       - name: update README file
         run: |
-          python .github/workflows/scripts/generate_md.py
-          --last_update $(date +'%Y-%m-%d')
-          --pl_ref_commit ${{ fromJson(needs.get_head_commits.outputs.ref_head_commit) }}
-          --pl_commit ${{ fromJson(needs.get_head_commits.outputs.head_commit) }}
+          python .github/workflows/scripts/generate_md.py --last_update $(date +'%Y-%m-%d') --pl_ref_commit ${{ fromJson(needs.get_head_commits.outputs.ref_head_commit) }} --pl_commit ${{ fromJson(needs.get_head_commits.outputs.head_commit) }}
 
       - name: Commit and push changes
         if:
