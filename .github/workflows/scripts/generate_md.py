@@ -41,8 +41,8 @@ if __name__ == "__main__":
     mdFile.new_header(level=1, title="PennyLane Benchmarks")
 
     base_link = "https://github.com/PennyLaneAI/pennylane/commit/"
-    mdFile.new_line("Benchmark reference head commit: "+ mdFile.new_inline_link(base_link+parsed_args.pl_ref_commit, parsed_args.pl_ref_commit))
-    mdFile.new_line("Benchmark head commit: "+ mdFile.new_inline_link(base_link+parsed_args.pl_commit, parsed_args.pl_commit))
+    mdFile.new_line("Benchmark reference head commit: "+ mdFile.new_inline_link(base_link+parsed_args.pl_ref_commit, parsed_args.pl_ref_commit[0:7]))
+    mdFile.new_line("Benchmark head commit: "+ mdFile.new_inline_link(base_link+parsed_args.pl_commit, parsed_args.pl_commit[0:7]))
     mdFile.write('  \n')
 
     # Adding plots to the markdown file.
