@@ -10,34 +10,66 @@ concurrency:
 
 jobs:
   call_pennylane_benchmarks:
-    uses: PennyLaneAI/pennylane/.github/workflows/benchmarks.yml@improve-benchmarks
+    uses: PennyLaneAI/pennylane/.github/workflows/benchmarks.yml@master
     with:
-      ref_branch: add-pytest-benchmarks
-      branch: improve-benchmarks
+      branch: master
+
+  get_head_commits:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout pennylane reference branch
+        uses: actions/checkout@v3
+        with:
+          repository: PennyLaneAI/pennylane
+          ref: add-pytest-benchmarks
+
+      - name: Query the benchmark reference branch head commit
+        id: query_ref_head_commit
+        run: |
+          echo "head_commit=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Checkout pennylane benchmarked branch
+        uses: actions/checkout@v3
+        with:
+          repository: PennyLaneAI/pennylane
+          ref: master
+
+      - name: Query the benchmarked branch head commit
+        id: query_head_commit
+        run: |
+          echo "head_commit=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
+    outputs:
+      ref_head_commit: ${{ steps.query_ref_head_commit.outputs.head_commit }}
+      head_commit: ${{ steps.query_head_commit.outputs.head_commit }}
+
 
   update_benchmark_data:
-      needs: call_pennylane_benchmarks
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout PennyLane-Lightning master
-          uses: actions/checkout@v3
-          with:
-            ref: main
+    needs: [call_pennylane_benchmarks, get_head_commits]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout pennylane-benchmarks
+        uses: actions/checkout@v3
+        with:
+          ref: main
 
-        - uses: actions/download-artifact@v3
-          with:
-            path: pennylane_benchmarks
+      - uses: actions/download-artifact@v3
+        with:
+          path: pennylane_benchmarks
 
-        - name: update time
-          run: sed -i "/^last updated:/c\last updated:\ $(date +'%Y-%m-%d')" README.md
+      - run: python -m pip install mdutils
 
-        - name: Commit and push changes
-          if:
-          run: |
-            if [[ -n $(git status -s) ]]; then
-              git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-              git config --global user.name "Benchmarks update bot"
-              git add .
-              git commit -m 'Auto update benchmark data'
-              git push
-            fi
+      - name: update README file
+        run: |
+          python .github/workflows/scripts/generate_md.py --last_update $(date +'%Y-%m-%d') --pl_ref_commit ${{ needs.get_head_commits.outputs.ref_head_commit }} --pl_commit ${{ needs.get_head_commits.outputs.head_commit }}
+
+      - name: Commit and push changes
+        if:
+        run: |
+          if [[ -n $(git status -s) ]]; then
+            git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+            git config --global user.name "Benchmarks update bot"
+            git add .
+            git commit -m 'Auto update benchmark data'
+            git push
+          fi
