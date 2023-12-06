@@ -40,8 +40,8 @@ jobs:
           echo "head_commit=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
 
     outputs:
-      ref_head_commit: "${{ steps.query_ref_head_commit.outputs.head_commit }}"
-      head_commit: "${{ steps.query_head_commit.outputs.head_commit }}"
+      ref_head_commit: ${{ steps.query_ref_head_commit.outputs.head_commit }}
+      head_commit: ${{ steps.query_head_commit.outputs.head_commit }}
 
 
   update_benchmark_data:
@@ -61,7 +61,7 @@ jobs:
 
       - name: update README file
         run: |
-          python .github/workflows/scripts/generate_md.py --last_update $(date +'%Y-%m-%d') --pl_ref_commit ${{ fromJson(needs.get_head_commits.outputs.ref_head_commit) }} --pl_commit ${{ fromJson(needs.get_head_commits.outputs.head_commit) }}
+          python .github/workflows/scripts/generate_md.py --last_update $(date +'%Y-%m-%d') --pl_ref_commit ${{ needs.get_head_commits.outputs.ref_head_commit }} --pl_commit ${{ needs.get_head_commits.outputs.head_commit }}
 
       - name: Commit and push changes
         if:
