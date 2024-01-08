@@ -3,7 +3,7 @@ pennylane-benchmarks
 ====================
   
 Performs periodic benchmark runs on PennyLane.  
-Last updated: 2024-01-07  
+Last updated: 2024-01-08  
 
 # PennyLane Benchmarks
   
