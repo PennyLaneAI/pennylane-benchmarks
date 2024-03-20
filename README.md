@@ -3,12 +3,12 @@ pennylane-benchmarks
 ====================
   
 Performs periodic benchmark runs on PennyLane.  
-Last updated: 2024-02-06  
+Last updated: 2024-03-20  
 
 # PennyLane Benchmarks
   
-Benchmark reference head commit: [a805bae](https://github.com/PennyLaneAI/pennylane/commit/a805baedacc1c4d6d996627db1c20c4854fd6782)  
-Benchmark head commit: [85dd14f](https://github.com/PennyLaneAI/pennylane/commit/85dd14f3b37bba4fbf0153e0f533ac18ba46163f)  
+Benchmark reference head commit: [78abf2b](https://github.com/PennyLaneAI/pennylane/commit/78abf2b935ea3545f4e540d1da4b080a511b8a73)  
+Benchmark head commit: [186faaf](https://github.com/PennyLaneAI/pennylane/commit/186faaff78f789c06490366d8aa655cf5592171b)  
   
 ![device-tests-default.mixed-None-3.9-benchmarks](pennylane_benchmarks/device-tests-default.mixed-None-3.9-benchmarks/device-tests-default.mixed-None-3.9.png)  
   
